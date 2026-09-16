@@ -1,0 +1,19 @@
+{
+  "name": "@tianshu/plugin-template",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Tianshu plugin template (TypeScript guest)",
+  "type": "module",
+  "scripts": {
+    "types": "jco guest-types wit --world-name plugin --strict -o types/generated",
+    "test": "vitest run",
+    "check": "pnpm types && tsc --noEmit",
+    "build": "pnpm types && jco componentize src/guest.ts --wit wit --world-name plugin --bundle-config rolldown.config.mjs --disable http --disable fetch-event --out dist/plugin.wasm && node scripts/pack.mjs"
+  },
+  "devDependencies": {
+    "@bytecodealliance/jco": "^1.33.0",
+    "@types/node": "^22.15.0",
+    "typescript": "^5.8.0",
+    "vitest": "^3.2.0"
+  }
+}
