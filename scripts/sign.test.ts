@@ -7,6 +7,7 @@ import {
   publicKeyHexFromSeed,
   signRelease,
   userSkPathFromArgs,
+  userIdFromArgs,
   verifyRelease,
 } from "./sign.mjs";
 
@@ -60,6 +61,12 @@ describe("sign", () => {
     ).toBe("./mine.hex");
   });
 
+  it("reads --user-id from argv", () => {
+    expect(
+      userIdFromArgs(["node", "sign.mjs", "--user-id", "0123456789abcdef0123456789abcdef"]),
+    ).toBe("0123456789abcdef0123456789abcdef");
+  });
+
   it("round-trips a packed artifact signature", () => {
     const seed = generateSeed();
     const artifact = packPluginFiles(
@@ -75,6 +82,7 @@ describe("sign", () => {
       abi: 3,
       kind: "wasm",
       authorId: "alice",
+      userId: "0123456789abcdef0123456789abcdef",
       artifact,
     });
     expect(
