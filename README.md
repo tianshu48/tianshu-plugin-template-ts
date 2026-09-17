@@ -2,7 +2,7 @@
 
 [中文](README.zh.md)
 
-This repository is a complete plugin you can install in Tianshu. The guest is TypeScript. You do not need the WIT repo: `wit/`, `schema/`, and `docs/` are vendored here. `pnpm build` writes `plugin.wasm`, `plugin.json`, `ui.json`, `USER.md`, and `icon.svg` into `dist/`. The wasm includes the JS engine (~12 MB).
+This is a TypeScript plugin for Tianshu. `pnpm build` writes `plugin.wasm`, `plugin.json`, `ui.json`, `USER.md`, and `icon.svg` into `dist/`. The wasm includes the JS engine (about 12 MB).
 
 ## Run it first
 
@@ -37,6 +37,14 @@ pnpm build
 7. To give the plugin its own graphs, call `add_graph` from `on-tool`, keep the returned `id`, then `add_node` with `graphId`. The host puts those graphs under `plugin/<your id>`, at most 4. Details: [host.apply](docs/host-apply.md) Graphs.
 
 The kind on the graph is `p:<your-id>:<kind>`.
+
+## Catalog
+
+Tag `v` plus the `plugin.json` `version` (`v0.1.0` when version is `0.1.0`). The release workflow builds `dist/`, puts a zip on the GitHub Release, and writes `proposals/<id>/<version>.json`.
+
+With `INDEX_PR_TOKEN` it opens a pull request against [tianshu48/tianshu-plugin-index](https://github.com/tianshu48/tianshu-plugin-index) `main`. Without that token, fork the index, add the same json, and open the PR.
+
+`example.community.template` and ids that start with `tianshu` are rejected. After the PR is approved, the index asks for a signed pack if the upload is unsigned; a pack that is already signed is merged on approval.
 
 ## plugin.json
 
