@@ -76,6 +76,7 @@ describe("sign", () => {
       Buffer.alloc(0),
       Buffer.alloc(0),
     );
+    expect(artifact.subarray(0, 4).toString()).toBe("TSP2");
     const envelope = signRelease({
       seed,
       pluginId: "alice.dice",
